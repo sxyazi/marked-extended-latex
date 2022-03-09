@@ -13,9 +13,8 @@ const extendedLatex = require("marked-extended-latex");
 // import extendedLatex from "https://cdn.jsdelivr.net/gh/UziTech/marked-extended-latex/lib/index.mjs";
 
 const options = {};
-const extended = await extendedLatex(options);
+marked.use(await extendedLatex(options));
 
-marked.use(extended);
 marked("$a+b=c$");
 // <p><span class="katex"><span ...
 ```
