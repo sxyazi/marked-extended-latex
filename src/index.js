@@ -1,6 +1,7 @@
 const CLASS_NAME = 'latex-b172fea480b';
 
 const latexRenderer = async(options) => {
+  /* istanbul ignore next */
   if (options.env !== 'test') {
     await import('katex/dist/katex.min.css');
   }
@@ -9,7 +10,7 @@ const latexRenderer = async(options) => {
   return (formula, displayMode) => {
     return katex.renderToString(formula, {
       displayMode,
-      output: options.output || 'html',
+      output: options.output || 'htmlAndMathml',
       throwOnError: false
     });
   };
@@ -48,8 +49,10 @@ const extInline = (options) => ({
 });
 
 let observer;
+/* istanbul ignore next */
 export default async(options = {}) => {
-  if (options.lazy) {
+  /* istanbul ignore next */
+  if (options.lazy && options.env !== 'test') {
     observer = new IntersectionObserver(async(entries, self) => {
       for (const entry of entries) {
         if (!entry.isIntersecting) {
@@ -78,6 +81,7 @@ export default async(options = {}) => {
   };
 };
 
+/* istanbul ignore next */
 export const observe = () => {
   if (!observer) {
     return;
@@ -89,6 +93,7 @@ export const observe = () => {
   });
 };
 
+/* istanbul ignore next */
 export const disconnect = () => {
   observer?.disconnect();
 };

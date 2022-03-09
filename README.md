@@ -12,16 +12,16 @@ const extendedLatex = require("marked-extended-latex");
 // import marked from "https://cdn.jsdelivr.net/gh/markedjs/marked/lib/marked.esm.js";
 // import extendedLatex from "https://cdn.jsdelivr.net/gh/UziTech/marked-extended-latex/lib/index.mjs";
 
-const options = {}
-const extended = await extendedLatex(options)
+const options = {};
+const extended = await extendedLatex(options);
 
 marked.use(extended);
 marked("$a+b=c$");
-// <p>|example html|</p>
+// <p><span class="katex"><span ...
 ```
 
 ## `options`
 
 - `lazy`, a boolean, whether to use lazy rendering, default `false`
-- `output`, a string, the output mode of LaTex, default `html`
+- `output`, a string, the [output mode of KaTex](https://katex.org/docs/options.html), default `htmlAndMathml`
 - `renderer`, a callback, LaTex renderer if you want to do something, otherwise use the default renderer
