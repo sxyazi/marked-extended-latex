@@ -1,13 +1,13 @@
 {
-  "name": "marked-extension-template",
-  "version": "0.0.0",
-  "description": "marked extension template",
-  "main": "./src/index.js",
+  "name": "marked-extended-latex",
+  "version": "0.0.1",
+  "description": "LaTex support to Marked",
+  "main": "src/index.js",
   "browser": "./lib/index.umd.js",
   "type": "module",
   "keywords": [
     "marked",
-    "extension"
+    "latex"
   ],
   "scripts": {
     "test": "jest --verbose",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/markedjs/marked-extension-template.git"
+    "url": "git+https://github.com/sxyazi/marked-extended-latex.git"
   },
-  "author": "Tony Brix <Tony@Brix.ninja> (https://Tony.Brix.ninja)",
+  "author": "sxyazi <sxyazi@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/markedjs/marked-extension-template/issues"
+    "url": "https://github.com/sxyazi/marked-extended-latex/issues"
   },
-  "homepage": "https://github.com/markedjs/marked-extension-template#readme",
+  "homepage": "https://github.com/sxyazi/marked-extended-latex#readme",
   "peerDependencies": {
     "marked": "^4.0.12"
   },
@@ -39,6 +39,7 @@
     "@semantic-release/github": "^8.0.2",
     "@semantic-release/npm": "^9.0.1",
     "@semantic-release/release-notes-generator": "^10.0.3",
+    "@types/katex": "^0.11.1",
     "babel-jest": "^27.5.1",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
@@ -47,7 +48,11 @@
     "eslint-plugin-promise": "^6.0.0",
     "jest-cli": "^27.5.1",
     "marked": "^4.0.12",
+    "regenerator-runtime": "^0.13.9",
     "rollup": "^2.70.0",
     "semantic-release": "^19.0.2"
+  },
+  "dependencies": {
+    "katex": "^0.15.2"
   }
 }

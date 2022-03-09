@@ -1,40 +1,27 @@
-<!-- The character `|` around a string denotes a place in this markdown file that needs to be changed for each extension. -->
-<!-- You may also delete any comments you don't need anymore. -->
+# marked-extended-latex
 
-# TODO:
-
-- [ ] Replace information in `/README.md`
-- [ ] Replace information in `/package.json`
-- [ ] Write extension in `/src/index.js`
-- [ ] Write tests in `/spec/index.test.js`
-- [ ] Uncomment release in `/.github/workflows/main.yml`
-
-<!-- Delete this line and above -->
-
-# marked-|this-extension|
 <!-- Description -->
 
 # Usage
-<!-- Show most examples of how to use this extension -->
 
 ```js
 const marked = require("marked");
-const |thisExtension| = require("marked-|this-extension|");
+const extendedLatex = require("marked-extended-latex");
 
 // or ES Module script
 // import marked from "https://cdn.jsdelivr.net/gh/markedjs/marked/lib/marked.esm.js";
-// import this extension from "https://cdn.jsdelivr.net/gh/UziTech/marked-|this-extension|/lib/index.mjs";
+// import extendedLatex from "https://cdn.jsdelivr.net/gh/UziTech/marked-extended-latex/lib/index.mjs";
 
-const options = {
-	// |default options|
-};
+const options = {}
+const extended = await extendedLatex(options)
 
-marked.use(|thisExtension|(options));
-
-marked("|example markdown|");
+marked.use(extended);
+marked("$a+b=c$");
 // <p>|example html|</p>
 ```
 
 ## `options`
 
-<!-- If there are no options you can delete this section -->
+- `lazy`, a boolean, whether to use lazy rendering, default `false`
+- `output`, a string, the output mode of LaTex, default `html`
+- `renderer`, a callback, LaTex renderer if you want to do something, otherwise use the default renderer
