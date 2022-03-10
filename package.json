@@ -40,7 +40,6 @@
     "@semantic-release/github": "^8.0.2",
     "@semantic-release/npm": "^9.0.1",
     "@semantic-release/release-notes-generator": "^10.0.3",
-    "@types/katex": "^0.11.1",
     "babel-jest": "^27.5.1",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
@@ -48,12 +47,10 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "jest-cli": "^27.5.1",
+    "katex": "^0.15.2",
     "marked": "^4.0.12",
     "regenerator-runtime": "^0.13.9",
     "rollup": "^2.70.0",
     "semantic-release": "^19.0.2"
-  },
-  "dependencies": {
-    "katex": "^0.15.2"
   }
 }

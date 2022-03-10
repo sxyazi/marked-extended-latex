@@ -1,21 +1,5 @@
 const CLASS_NAME = 'latex-b172fea480b';
 
-const latexRenderer = async(options) => {
-  /* istanbul ignore next */
-  if (options.env !== 'test') {
-    await import('katex/dist/katex.min.css');
-  }
-  const { default: katex } = await import('katex');
-
-  return (formula, displayMode) => {
-    return katex.renderToString(formula, {
-      displayMode,
-      output: options.output || 'htmlAndMathml',
-      throwOnError: false
-    });
-  };
-};
-
 const extBlock = (options) => ({
   name: 'latex-block',
   level: 'block',
@@ -27,7 +11,7 @@ const extBlock = (options) => ({
     return match ? { type: 'latex-block', raw: match[0], formula: match[1] } : undefined;
   },
   renderer(token) {
-    if (!options.lazy) return options.renderer(token.formula, true);
+    if (!options.lazy) return options.render(token.formula, true);
     return `<span class="${CLASS_NAME}" block>${token.formula}</span>`;
   }
 });
@@ -43,17 +27,17 @@ const extInline = (options) => ({
     return match ? { type: 'latex', raw: match[0], formula: match[1] } : undefined;
   },
   renderer(token) {
-    if (!options.lazy) return options.renderer(token.formula, false);
+    if (!options.lazy) return options.render(token.formula, false);
     return `<span class="${CLASS_NAME}">${token.formula}</span>`;
   }
 });
 
 let observer;
 /* istanbul ignore next */
-export default async(options = {}) => {
+export default (options = {}) => {
   /* istanbul ignore next */
   if (options.lazy && options.env !== 'test') {
-    observer = new IntersectionObserver(async(entries, self) => {
+    observer = new IntersectionObserver((entries, self) => {
       for (const entry of entries) {
         if (!entry.isIntersecting) {
           continue;
@@ -62,18 +46,12 @@ export default async(options = {}) => {
         const span = entry.target;
         self.unobserve(span);
 
-        if (!options.renderer) {
-          options.renderer = await latexRenderer(options);
-        }
-
-        span.innerHTML = options.renderer(span.innerText, span.hasAttribute('block'));
+        Promise.resolve(options.render(span.innerText, span.hasAttribute('block'))).then((html) => {
+          span.innerHTML = html;
+        });
         span.classList.add('latex-rendered');
       }
     });
-  }
-
-  if (!options.renderer && !options.lazy) {
-    options.renderer = await latexRenderer(options);
   }
 
   return {

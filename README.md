@@ -1,20 +1,19 @@
 # marked-extended-latex
 
-<!-- Description -->
+LaTex support to Marked
 
 # Usage
 
-```js
-const marked = require("marked");
-const extendedLatex = require("marked-extended-latex");
+```typescript
+import Katex from "katex";
+import Marked from "marked";
+import extendedLatex from "marked-extended-latex";
 
-// or ES Module script
-// import marked from "https://cdn.jsdelivr.net/gh/markedjs/marked/lib/marked.esm.js";
-// import extendedLatex from "https://cdn.jsdelivr.net/gh/UziTech/marked-extended-latex/lib/index.mjs";
+const options = {
+  render: (formula: string, displayMode: boolean) => Katex.renderToString(formula, { displayMode })
+};
 
-const options = {};
-marked.use(await extendedLatex(options));
-
+marked.use(extendedLatex(options));
 marked("$a+b=c$");
 // <p><span class="katex"><span ...
 ```
@@ -22,5 +21,4 @@ marked("$a+b=c$");
 ## `options`
 
 - `lazy`, a boolean, whether to use lazy rendering, default `false`
-- `output`, a string, the [output mode of KaTex](https://katex.org/docs/options.html), default `htmlAndMathml`
-- `renderer`, a callback, LaTex renderer if you want to do something, otherwise use the default renderer
+- `render`, a callback, LaTex renderer. When `lazy` is true, it can be an async function (returns Promise)
