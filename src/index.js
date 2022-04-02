@@ -51,7 +51,7 @@ export default (options = {}) => {
         });
         span.classList.add('latex-rendered');
       }
-    });
+    }, { threshold: 1.0 });
   }
 
   return {
