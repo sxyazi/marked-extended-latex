@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/sxyazi/marked-extended-latex#readme",
   "peerDependencies": {
-    "marked": "^4.0.12"
+    "marked": "^4.0.14"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
@@ -48,7 +48,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "jest-cli": "^27.5.1",
     "katex": "^0.15.3",
-    "marked": "^4.0.12",
+    "marked": "^4.0.14",
     "regenerator-runtime": "^0.13.9",
     "rollup": "^2.70.1",
     "semantic-release": "^19.0.2"
