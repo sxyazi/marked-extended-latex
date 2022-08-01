@@ -50,7 +50,7 @@
     "katex": "^0.16.0",
     "marked": "^4.0.18",
     "regenerator-runtime": "^0.13.9",
-    "rollup": "^2.77.0",
+    "rollup": "^2.77.2",
     "semantic-release": "^19.0.3"
   }
 }
