@@ -47,7 +47,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "jest-cli": "^29.3.1",
-    "katex": "^0.16.3",
+    "katex": "^0.16.4",
     "marked": "^4.2.4",
     "regenerator-runtime": "^0.13.11",
     "rollup": "^3.7.3",
