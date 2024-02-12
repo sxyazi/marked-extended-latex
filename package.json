@@ -51,6 +51,6 @@
     "marked": "^12.0.0",
     "regenerator-runtime": "^0.14.1",
     "rollup": "^4.10.0",
-    "semantic-release": "^23.0.0"
+    "semantic-release": "^23.0.2"
   }
 }
