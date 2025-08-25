@@ -67,8 +67,54 @@ jobs:
             git config --global user.name "CI Build"
             git commit -am "🗜️ build [skip ci]"
           fi
-      - name: Release 🎉
+      - name: Verify NPM Token
+        id: verify-token
+        run: |
+          if [ -z "$NPM_TOKEN" ]; then
+            echo "WARNING: NPM_TOKEN is not set. Skipping npm publishing."
+            echo "npm-token-valid=false" >> $GITHUB_OUTPUT
+          else
+            # Test if token is valid by checking npm whoami
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+            if npm whoami > /dev/null 2>&1; then
+              echo "NPM token is valid"
+              echo "npm-token-valid=true" >> $GITHUB_OUTPUT
+            else
+              echo "WARNING: NPM token is invalid. Skipping npm publishing."
+              echo "Please see NPM_TOKEN_SETUP.md for instructions on how to fix this."
+              echo "npm-token-valid=false" >> $GITHUB_OUTPUT
+            fi
+            rm -f ~/.npmrc
+          fi
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Release 🎉 (with npm)
+        if: steps.verify-token.outputs.npm-token-valid == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
+      - name: Release 🎉 (GitHub only)
+        if: steps.verify-token.outputs.npm-token-valid == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Attempting GitHub-only release due to NPM token issues..."
+          # Create a temporary semantic-release config without npm
+          cat > .releaserc.temp.json << 'EOF'
+          {
+            "branches": "main",
+            "plugins": [
+              "@semantic-release/commit-analyzer",
+              "@semantic-release/release-notes-generator",
+              "@semantic-release/github",
+              "@semantic-release/git"
+            ]
+          }
+          EOF
+          npx semantic-release --config .releaserc.temp.json || {
+            echo "GitHub-only release also failed. This may indicate other configuration issues."
+            echo "Please check the logs above and see NPM_TOKEN_SETUP.md for troubleshooting."
+            exit 1
+          }
+          rm -f .releaserc.temp.json

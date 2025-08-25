@@ -14,7 +14,8 @@
     "test": "jest --verbose",
     "test:cover": "jest --coverage",
     "lint": "eslint .",
-    "build": "rollup -c rollup.config.umd.js"
+    "build": "rollup -c rollup.config.umd.js",
+    "verify-npm-token": "./scripts/verify-npm-token.sh"
   },
   "repository": {
     "type": "git",

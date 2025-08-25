@@ -22,3 +22,7 @@ marked("$a+b=c$");
 
 - `lazy`, a boolean, whether to use lazy rendering, default `false`
 - `render`, a callback, LaTex renderer. When `lazy` is true, it can be an async function (returns Promise)
+
+## Release Issues
+
+If you encounter release failures related to NPM token issues, please see [NPM_TOKEN_SETUP.md](./NPM_TOKEN_SETUP.md) for detailed instructions on how to fix them.
