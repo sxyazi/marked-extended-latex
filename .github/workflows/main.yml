@@ -81,7 +81,6 @@ jobs:
               echo "npm-token-valid=true" >> $GITHUB_OUTPUT
             else
               echo "WARNING: NPM token is invalid. Skipping npm publishing."
-              echo "Please see NPM_TOKEN_SETUP.md for instructions on how to fix this."
               echo "npm-token-valid=false" >> $GITHUB_OUTPUT
             fi
             rm -f ~/.npmrc
@@ -114,7 +113,6 @@ jobs:
           EOF
           npx semantic-release --config .releaserc.temp.json || {
             echo "GitHub-only release also failed. This may indicate other configuration issues."
-            echo "Please check the logs above and see NPM_TOKEN_SETUP.md for troubleshooting."
             exit 1
           }
           rm -f .releaserc.temp.json
